@@ -25,5 +25,16 @@ namespace API.Controllers
 
             return Ok(new { token = result.Token });
         }
+
+        [HttpPost("cadastro")]
+        public async Task<IActionResult> Cadastro([FromBody] LoginDto loginDto)
+        {
+            var result = await _authService.CadastroUsuario(loginDto);
+
+            if (!result.Status)
+                return Unauthorized(result.Mensagem);
+
+            return Ok(result);
+        }
     }
 }
