@@ -1,4 +1,4 @@
-﻿using Domain.Model;
+﻿using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,12 @@ namespace Persistence.Context
 {
     public class DataContext : DbContext
     {
+        
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
 
-        public DbSet<Exemplo> DB_Exemplo { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

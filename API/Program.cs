@@ -1,8 +1,8 @@
 /*Este arquivo é o primeiro a ser carregado no projeto da API*/
+using Aplicacao.Service;
 using Application.IService;
 using Application.Mapper;
 using Application.Service;
-using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 using Persistence.IRepository;
@@ -16,17 +16,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ExemploConnection1"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionPostGree"));
 });
 
 //Automappers
-builder.Services.AddAutoMapper(typeof(ExemploMapper));
+builder.Services.AddAutoMapper(typeof(GeralMapper));
 builder.Services.AddAutoMapper(typeof(ResponseBaseMapper));
 
 //Services e repositorys
-builder.Services.AddScoped<IExemploService, ExemploService>();
-builder.Services.AddScoped<IExemploRepository, ExemploRepository>();
-
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
