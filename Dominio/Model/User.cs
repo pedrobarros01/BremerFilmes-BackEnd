@@ -14,6 +14,7 @@ namespace Dominio.Model
 
         public IList<ReviewFilme> ReviewFilmes { get; set; }
         public IList<FilmeFav> FilmeFavoritos { get; set; }
+        public IList<PessoaFav> PessoasFavoritas { get; set; }
 
     }
 }

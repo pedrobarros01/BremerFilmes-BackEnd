@@ -21,5 +21,6 @@ namespace Persistence.Context
 
         public DbSet<ReviewFilme> ReviewFilmes { get; set; }
         public DbSet<FilmeFav> FilmesFavoritos { get; set; }
+        public DbSet<PessoaFav> PessoasFavoritas { get; set; }
     }
 }
