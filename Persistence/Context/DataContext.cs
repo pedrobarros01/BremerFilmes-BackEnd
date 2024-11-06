@@ -1,4 +1,5 @@
-﻿using Dominio.Model;
+﻿using Domain.Model;
+using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,7 @@ namespace Persistence.Context
         }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<ReviewFilme> ReviewFilmes { get; set; }
     }
 }
