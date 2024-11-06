@@ -13,6 +13,7 @@ namespace Dominio.Model
         public string PasswordHash { get; set; } // A senha deve ser armazenada de forma segura (hash)
 
         public IList<ReviewFilme> ReviewFilmes { get; set; }
+        public IList<FilmeFav> FilmeFavoritos { get; set; }
 
     }
 }
