@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241106015210_FilmesFavoritos")]
-    partial class FilmesFavoritos
+    [Migration("20241108054100_Refazendo modelo")]
+    partial class Refazendomodelo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,14 +60,57 @@ namespace Persistence.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("UsuarioId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUsuario");
+
+                    b.ToTable("FilmesFavoritos");
+                });
+
+            modelBuilder.Entity("Domain.Model.PessoaFav", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cargo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DtUserCreate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DtUserDelete")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DtUserUpdate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdPessoaTMDB")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("IdUserCreate")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("IdUserDelete")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("IdUserUpdate")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("IdUsuario");
 
-                    b.ToTable("FilmesFavoritos");
+                    b.ToTable("PessoasFavoritas");
                 });
 
             modelBuilder.Entity("Domain.Model.ReviewFilme", b =>
@@ -115,12 +158,9 @@ namespace Persistence.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("IdUsuario");
 
                     b.ToTable("ReviewFilmes");
                 });
@@ -170,29 +210,42 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Model.FilmeFav", b =>
                 {
-                    b.HasOne("Dominio.Model.User", "Usuario")
+                    b.HasOne("Dominio.Model.User", "User")
                         .WithMany("FilmeFavoritos")
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Model.PessoaFav", b =>
+                {
+                    b.HasOne("Dominio.Model.User", "User")
+                        .WithMany("PessoasFavoritas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Model.ReviewFilme", b =>
                 {
-                    b.HasOne("Dominio.Model.User", "Usuario")
+                    b.HasOne("Dominio.Model.User", "User")
                         .WithMany("ReviewFilmes")
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Dominio.Model.User", b =>
                 {
                     b.Navigation("FilmeFavoritos");
+
+                    b.Navigation("PessoasFavoritas");
 
                     b.Navigation("ReviewFilmes");
                 });

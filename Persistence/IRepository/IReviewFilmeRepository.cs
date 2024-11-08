@@ -1,18 +1,19 @@
 using Domain.Model;
+using Domain.Structure;
 using Dominio.Model;
 
 namespace Persistence.IRepository
 {
     public interface IReviewFilmeRepository
     {
-        Task<ReviewFilme> CriarReview(ReviewFilme reviewFilme);
+        Task<ResponseBase<ReviewFilme>> CriarReview(ReviewFilme reviewFilme);
         Task<bool> DeletarReview(int id);
-        Task<int> DarCurtida(int idUsuario);
-        Task<ReviewFilme> EditarComentario(int idUsuario, string comentario);
+        Task<ResponseBase<int>> DarCurtida(int id);
+        Task<ResponseBase<ReviewFilme>> EditarComentario(int id, string comentario);
 
-        IList<ReviewFilme> PegarReviewsPorUsuario(int idUsuario);
-        IList<ReviewFilme> PegarReviews();
-        ReviewFilme PegarReview(int id);
+        ResponseBase<IList<ReviewFilme>> PegarReviewsPorUsuario(int idUsuario);
+        ResponseBase<IList<ReviewFilme>> PegarReviews();
+        ResponseBase<ReviewFilme> PegarReview(int id);
 
 
     }

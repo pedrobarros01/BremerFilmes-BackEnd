@@ -1,7 +1,9 @@
 using Domain.Model;
+using Domain.Structure;
 using Dominio.Model;
 using Persistence.Context;
 using Persistence.IRepository;
+
 using System.Linq;
 
 namespace Persistence.Repository
@@ -15,39 +17,110 @@ namespace Persistence.Repository
             _context = context;
         }
 
-        public Task<ReviewFilme> CriarReview(ReviewFilme reviewFilme)
+        public async Task<ResponseBase<ReviewFilme>> CriarReview(ReviewFilme reviewFilme)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
+                reviewFilme.DtUserCreate = DateTime.UtcNow;
+                await _context.ReviewFilmes.AddAsync(reviewFilme);
+                await _context.SaveChangesAsync();
+                response.Status = true;
+                response.Dados = reviewFilme;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
-        public Task<int> DarCurtida(int idUsuario)
+        public async Task<ResponseBase<int>> DarCurtida(int id)
         {
-            throw new NotImplementedException();
+            ReviewFilme? reviewFilme = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
+            ResponseBase<int> response = new ResponseBase<int>();
+            if ( reviewFilme == null)
+            {
+                response.Status = false;
+                response.Dados = -1;
+                response.Descricao = "Erro em achar review de filme(id invalido)";
+                return response;
+            }
+            reviewFilme.Curtidas += 1;
+            _context.ReviewFilmes.Update(reviewFilme);
+            await _context.SaveChangesAsync();
+            response.Dados = reviewFilme.Curtidas;
+            response.Status = true;
+            return response;
+
         }
 
-        public Task<bool> DeletarReview(int id)
+        public async Task<bool> DeletarReview(int id)
         {
-            throw new NotImplementedException();
+            ReviewFilme? reviewFilme = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
+            if ( reviewFilme == null)
+            {
+                return false;
+            }
+            _context.ReviewFilmes.Remove(reviewFilme);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<ReviewFilme> EditarComentario(int idUsuario, string comentario)
+        public async Task<ResponseBase<ReviewFilme>> EditarComentario(int id, string comentario)
         {
-            throw new NotImplementedException();
+            ReviewFilme? reviewFilme = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
+            ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
+
+            if (reviewFilme == null)
+            {
+                response.Status = false;
+                response.Dados = null;
+                response.Descricao = "Erro em achar review de filme(id invalido)";
+                return response;
+            }
+            reviewFilme.Comentario = comentario;
+            _context.ReviewFilmes.Update(reviewFilme);
+            await _context.SaveChangesAsync();
+            response.Status = true;
+            response.Dados = reviewFilme;
+            return response;
         }
 
-        public ReviewFilme PegarReview(int id)
+        public ResponseBase<ReviewFilme> PegarReview(int id)
         {
-            throw new NotImplementedException();
+            ReviewFilme? review = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
+            ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
+            if (review == null)
+            {
+                response.Status= false;
+                response.Dados = null;
+                response.Descricao = "Não existe essa review";
+                return response;
+            }
+            response.Status = true;
+            response.Dados = review;
+            return response;
+
         }
 
-        public IList<ReviewFilme> PegarReviews()
+        public ResponseBase<IList<ReviewFilme>> PegarReviews()
         {
-            throw new NotImplementedException();
+            ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
+            IList<ReviewFilme> reviews = _context.ReviewFilmes.ToList();
+            response.Status = true;
+            response.Dados = reviews;
+            return response;
         }
 
-        public IList<ReviewFilme> PegarReviewsPorUsuario(int idUsuario)
+        public ResponseBase<IList<ReviewFilme>> PegarReviewsPorUsuario(int idUsuario)
         {
-            throw new NotImplementedException();
+            ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
+            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdUsuario == idUsuario).ToList();
+            response.Status = true;
+            response.Dados = reviews;
+            return response;
         }
     }
 }

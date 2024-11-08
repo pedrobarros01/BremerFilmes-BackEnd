@@ -12,9 +12,11 @@ namespace Domain.Model
     public class PessoaFav : ModelBase
     {
         public int IdPessoaTMDB { get; set; }
+        public User User { get; set; }
+
         [ForeignKey("User")]
         public int IdUsuario { get; set; }
-        public User Usuario { get; set; }
+        
         public string Cargo { get; set; }
     }
 }
