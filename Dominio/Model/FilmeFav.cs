@@ -12,8 +12,10 @@ namespace Domain.Model
     public class FilmeFav : ModelBase
     {
         public int IdFilmeTMDB { get; set; }
+        public User User { get; set; }
+
         [ForeignKey("User")]
         public int IdUsuario { get; set; }
-        public User Usuario { get; set; }
+        
     }
 }

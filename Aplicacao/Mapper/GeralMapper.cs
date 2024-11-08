@@ -1,6 +1,7 @@
 ﻿using Application.Dto;
 using Application.ViewModel;
 using AutoMapper;
+using Domain.Model;
 using Dominio.Model;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Application.Mapper
             CreateMap<UsuarioViewModel, LoginDto>()
                 .ForMember(LoginDTO => LoginDTO.Password, map => map.MapFrom(Usuario => Usuario.PasswordHash))
                 ;
+            CreateMap<ReviewFilmeViewModel, ReviewFilme>();
+            CreateMap<ReviewFilme, ReviewFilmeViewModel>();
         }
     }
 }

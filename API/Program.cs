@@ -24,9 +24,11 @@ builder.Services.AddAutoMapper(typeof(GeralMapper));
 builder.Services.AddAutoMapper(typeof(ResponseBaseMapper));
 
 //Services e repositorys
+builder.Services.AddScoped<IReviewFilmeService, ReviewFilmeService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IReviewFilmeRepository, ReviewFilmeRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
