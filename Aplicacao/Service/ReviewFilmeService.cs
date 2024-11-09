@@ -28,11 +28,12 @@ namespace Application.Service
             _repository = repository;
         }
 
-        public async Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewFilmeViewModel reviewFilme)
+        public async Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewCreateDto reviewFilme)
         {
             ResponseBaseViewModel<ReviewFilmeViewModel> responseBaseViewModel;
             try
             {
+                
                 ReviewFilme review = _mapper.Map<ReviewFilme>(reviewFilme);
                 var response = await _repository.CriarReview(review);
                 responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<ReviewFilmeViewModel>>(response);
@@ -135,6 +136,25 @@ namespace Application.Service
             try
             {
                 var response = _repository.PegarReviews();
+                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<IList<ReviewFilmeViewModel>>>(response);
+                return responseBaseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseBaseViewModel = new ResponseBaseViewModel<IList<ReviewFilmeViewModel>>();
+                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
+                responseBaseViewModel.Descricao = ex.Message;
+                return responseBaseViewModel;
+            }
+        }
+
+        public ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorFilme(int idTmdbFilme)
+        {
+            ResponseBaseViewModel<IList<ReviewFilmeViewModel>> responseBaseViewModel;
+            try
+            {
+                var response = _repository.PegarReviewsPorFilme(idTmdbFilme);
                 responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<IList<ReviewFilmeViewModel>>>(response);
                 return responseBaseViewModel;
             }

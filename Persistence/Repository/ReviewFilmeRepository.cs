@@ -23,6 +23,7 @@ namespace Persistence.Repository
             {
                 ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
                 reviewFilme.DtUserCreate = DateTime.UtcNow;
+                reviewFilme.Curtidas = 0;
                 await _context.ReviewFilmes.AddAsync(reviewFilme);
                 await _context.SaveChangesAsync();
                 response.Status = true;
@@ -114,10 +115,31 @@ namespace Persistence.Repository
             return response;
         }
 
+        public ResponseBase<IList<ReviewFilme>> PegarReviewsPorFilme(int idTmdbFilme)
+        {
+            ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
+            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdFilmeTMDB == idTmdbFilme).ToList();
+            if (reviews.Count == 0)
+            {
+                response.Status = false;
+                response.Mensagem = "Esse filme não tem nenhuma review";
+                return response;
+            }
+            response.Status = true;
+            response.Dados = reviews;
+            return response;
+        }
+
         public ResponseBase<IList<ReviewFilme>> PegarReviewsPorUsuario(int idUsuario)
         {
             ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
             IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdUsuario == idUsuario).ToList();
+            if (reviews.Count == 0)
+            {
+                response.Status = false;
+                response.Mensagem = "Esse usuário não tem nenhuma review";
+                return response;
+            }
             response.Status = true;
             response.Dados = reviews;
             return response;
