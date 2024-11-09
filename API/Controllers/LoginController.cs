@@ -1,5 +1,6 @@
 using Application.Dto;
 using Application.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -38,6 +39,7 @@ namespace API.Controllers
         }
 
         [HttpGet("pegar-usuario-por-id")]
+        [Authorize]
         public IActionResult PegarUsuarioPorId([FromHeader]int id)
         {
             var result = _authService.GetUserById(id);

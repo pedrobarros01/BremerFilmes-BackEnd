@@ -1,12 +1,14 @@
 using Application.Dto;
 using Application.IService;
 using Application.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewFilmeController : ControllerBase
     {
         private readonly IReviewFilmeService _reviewService;
