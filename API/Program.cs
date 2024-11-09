@@ -29,6 +29,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReviewFilmeRepository, ReviewFilmeRepository>();
+builder.Services.AddScoped<IPessoaFavoritaService, PessoaFavoritaService>();
+builder.Services.AddScoped<IPessoaFavoritaRepository, PessoaFavoritaRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
