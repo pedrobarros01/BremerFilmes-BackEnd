@@ -17,6 +17,8 @@ namespace Application.Mapper
         {
             CreateMap<User, UsuarioViewModel>();
             CreateMap<UsuarioViewModel, User>();
+            CreateMap<UsuarioSearchViewModel, User>();
+            CreateMap<User, UsuarioSearchViewModel>();
             CreateMap<LoginDto, UsuarioViewModel>()
                 .ForMember(UsuarioViewModel => UsuarioViewModel.PasswordHash, map => map.MapFrom(LoginDto => LoginDto.Password));
             CreateMap<UsuarioViewModel, LoginDto>()

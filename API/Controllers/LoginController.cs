@@ -9,7 +9,7 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-
+            
         public AuthController(IAuthService authService)
         {
             _authService = authService;
@@ -30,6 +30,17 @@ namespace API.Controllers
         public async Task<IActionResult> Cadastro([FromBody] LoginDto loginDto)
         {
             var result = await _authService.CadastroUsuario(loginDto);
+
+            if (!result.Status)
+                return Unauthorized(result.Mensagem);
+
+            return Ok(result);
+        }
+
+        [HttpGet("pegar-usuario-por-id")]
+        public IActionResult PegarUsuarioPorId([FromHeader]int id)
+        {
+            var result = _authService.GetUserById(id);
 
             if (!result.Status)
                 return Unauthorized(result.Mensagem);

@@ -1,5 +1,7 @@
 using Application.Dto;
 using Application.ViewModel;
+using Domain.Structure;
+using Dominio.Model;
 
 namespace Application.IService
 {
@@ -7,5 +9,6 @@ namespace Application.IService
     {
         LoginResultDto Login(LoginDto loginDto);
         Task<ResponseBaseViewModel<UsuarioViewModel>> CadastroUsuario(LoginDto cadastroDTO);
+        ResponseBaseViewModel<UsuarioSearchViewModel> GetUserById(int id);
     }
 }

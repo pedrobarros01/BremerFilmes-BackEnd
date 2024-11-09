@@ -2,6 +2,7 @@ using Application.Dto;
 using Application.IService;
 using Application.ViewModel;
 using AutoMapper;
+using Domain.Structure;
 using Dominio.Model;
 using Persistence.IRepository;
 using System;
@@ -71,7 +72,7 @@ namespace Aplicacao.Service
             return new ResponseBaseViewModel<UsuarioViewModel>
             {
                 Dados = null,
-                Descricao = "Cadastradoi com sucesso",
+                Descricao = "Cadastrado com sucesso",
                 Mensagem = "Cadastrado comm sucesso",
                 Status = true
 
@@ -122,6 +123,25 @@ namespace Aplicacao.Service
                 }
             }
             return true; // Hashs coincidem
+        }
+
+        public ResponseBaseViewModel<UsuarioSearchViewModel> GetUserById(int id)
+        {
+            ResponseBaseViewModel<UsuarioSearchViewModel> responseBaseViewModel;
+            try
+            {
+                var response = _userRepository.GetUserById(id);
+                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<UsuarioSearchViewModel>>(response);
+                return responseBaseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseBaseViewModel = new ResponseBaseViewModel<UsuarioSearchViewModel>();
+                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
+                responseBaseViewModel.Descricao = ex.Message;
+                return responseBaseViewModel;
+            }
         }
     }
 }
