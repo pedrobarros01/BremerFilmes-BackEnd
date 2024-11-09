@@ -149,6 +149,25 @@ namespace Application.Service
             }
         }
 
+        public ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorFilme(int idTmdbFilme)
+        {
+            ResponseBaseViewModel<IList<ReviewFilmeViewModel>> responseBaseViewModel;
+            try
+            {
+                var response = _repository.PegarReviewsPorFilme(idTmdbFilme);
+                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<IList<ReviewFilmeViewModel>>>(response);
+                return responseBaseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseBaseViewModel = new ResponseBaseViewModel<IList<ReviewFilmeViewModel>>();
+                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
+                responseBaseViewModel.Descricao = ex.Message;
+                return responseBaseViewModel;
+            }
+        }
+
         public ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorUsuario(int idUsuario)
         {
             ResponseBaseViewModel<IList<ReviewFilmeViewModel>> responseBaseViewModel;

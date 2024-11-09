@@ -12,6 +12,7 @@ namespace Persistence.IRepository
         Task<ResponseBase<ReviewFilme>> EditarComentario(int id, string comentario);
 
         ResponseBase<IList<ReviewFilme>> PegarReviewsPorUsuario(int idUsuario);
+        ResponseBase<IList<ReviewFilme>> PegarReviewsPorFilme(int idTmdbFilme);
         ResponseBase<IList<ReviewFilme>> PegarReviews();
         ResponseBase<ReviewFilme> PegarReview(int id);
 

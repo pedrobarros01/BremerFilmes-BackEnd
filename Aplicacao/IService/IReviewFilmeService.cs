@@ -1,5 +1,6 @@
 ﻿using Application.Dto;
 using Application.ViewModel;
+using Domain.Model;
 using Domain.Structure;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Application.IService
         Task<ResponseBaseViewModel<ReviewFilmeViewModel>> EditarComentario(ReviewEditDto editDto);
 
         ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorUsuario(int idUsuario);
+        ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorFilme(int idTmdbFilme);
         ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviews();
         ResponseBaseViewModel<ReviewFilmeViewModel> PegarReview(int id);
     }

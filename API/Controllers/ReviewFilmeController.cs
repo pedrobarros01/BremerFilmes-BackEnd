@@ -83,9 +83,20 @@ namespace API.Controllers
         }
 
         [HttpGet("pegar-reviews-de-usuario")]
-        public IActionResult PegarReviews([FromHeader] int idUsuario)
+        public IActionResult PegarReviewsPorUsuario([FromHeader] int idUsuario)
         {
             var response = _reviewService.PegarReviewsPorUsuario(idUsuario);
+            if (!response.Status)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("pegar-reviews-de-filme")]
+        public IActionResult PegarReviewsPorFilme([FromHeader] int idTmdbFilme)
+        {
+            var response = _reviewService.PegarReviewsPorFilme(idTmdbFilme);
             if (!response.Status)
             {
                 return BadRequest(response);
