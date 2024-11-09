@@ -23,6 +23,7 @@ namespace Persistence.Repository
             {
                 ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
                 reviewFilme.DtUserCreate = DateTime.UtcNow;
+                reviewFilme.Curtidas = 0;
                 await _context.ReviewFilmes.AddAsync(reviewFilme);
                 await _context.SaveChangesAsync();
                 response.Status = true;

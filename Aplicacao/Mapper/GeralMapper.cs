@@ -22,11 +22,15 @@ namespace Application.Mapper
             CreateMap<UsuarioViewModel, LoginDto>()
                 .ForMember(LoginDTO => LoginDTO.Password, map => map.MapFrom(Usuario => Usuario.PasswordHash))
                 ;
+            CreateMap<ReviewCreateDto, ReviewFilme>();
             CreateMap<ReviewFilmeViewModel, ReviewFilme>();
             CreateMap<ReviewFilme, ReviewFilmeViewModel>();
             CreateMap<PessoaFavoritaViewModel, PessoaFav>();
             CreateMap<PessoaFav, PessoaFavoritaViewModel>();
             CreateMap<PessoaFavCreateDto, PessoaFavoritaViewModel>();
+            CreateMap<FilmeFavoritoViewModel, FilmeFav>();
+            CreateMap<FilmeFav, FilmeFavoritoViewModel>();
+            CreateMap<FilmeFavCreateDto, FilmeFavoritoViewModel>();
 
         }
     }

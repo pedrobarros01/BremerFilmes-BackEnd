@@ -11,7 +11,7 @@ namespace Application.IService
 {
     public interface IReviewFilmeService
     {
-        Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewFilmeViewModel reviewFilme);
+        Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewCreateDto reviewFilme);
         Task<ResponseBaseViewModel<bool>> DeletarReview(int id);
         Task<ResponseBaseViewModel<int>> DarCurtida(int id);
         Task<ResponseBaseViewModel<ReviewFilmeViewModel>> EditarComentario(ReviewEditDto editDto);

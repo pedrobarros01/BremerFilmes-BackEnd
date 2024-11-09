@@ -31,6 +31,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReviewFilmeRepository, ReviewFilmeRepository>();
 builder.Services.AddScoped<IPessoaFavoritaService, PessoaFavoritaService>();
 builder.Services.AddScoped<IPessoaFavoritaRepository, PessoaFavoritaRepository>();
+builder.Services.AddScoped<IFilmesFavoritosService, FilmesFavoritosService>();
+builder.Services.AddScoped<IFilmesFavoritosRepository, FilmesFavoritosRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -28,11 +28,12 @@ namespace Application.Service
             _repository = repository;
         }
 
-        public async Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewFilmeViewModel reviewFilme)
+        public async Task<ResponseBaseViewModel<ReviewFilmeViewModel>> CriarReview(ReviewCreateDto reviewFilme)
         {
             ResponseBaseViewModel<ReviewFilmeViewModel> responseBaseViewModel;
             try
             {
+                
                 ReviewFilme review = _mapper.Map<ReviewFilme>(reviewFilme);
                 var response = await _repository.CriarReview(review);
                 responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<ReviewFilmeViewModel>>(response);

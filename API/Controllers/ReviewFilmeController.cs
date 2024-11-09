@@ -17,7 +17,7 @@ namespace API.Controllers
         }
 
         [HttpPost("criar-review")]
-        public async Task<IActionResult> CriarReview([FromBody] ReviewFilmeViewModel body)
+        public async Task<IActionResult> CriarReview([FromBody] ReviewCreateDto body)
         {
             var response = await _reviewService.CriarReview(body);
             if (!response.Status)
