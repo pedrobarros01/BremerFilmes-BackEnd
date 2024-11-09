@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.ViewModel
 {
-    public class ReviewFilmeViewModel : ModelBaseViewModel
+    public class PessoaFavoritaViewModel : ModelBaseViewModel
     {
-        public int IdFilmeTMDB { get; set; }
+        public int IdPessoaTMDB { get; set; }
         public int IdUsuario { get; set; }
-        public string Comentario { get; set; }
-        public decimal Nota { get; set; }
-        public int Curtidas { get; set; }
+        public string Cargo { get; set; }
 
     }
 }
