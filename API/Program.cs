@@ -87,6 +87,15 @@ builder.Services.AddScoped<IPessoaFavoritaService, PessoaFavoritaService>();
 builder.Services.AddScoped<IPessoaFavoritaRepository, PessoaFavoritaRepository>();
 builder.Services.AddScoped<IFilmesFavoritosService, FilmesFavoritosService>();
 builder.Services.AddScoped<IFilmesFavoritosRepository, FilmesFavoritosRepository>();
+var myPolicyName = "MyPolicyName"; // you will specify the exact same string in different places, so assigning policy names to variables avoids potential typo mistakes.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myPolicyName,
+      configurePolicy: policy =>
+      {
+          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+      });
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -96,6 +105,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(myPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
