@@ -29,8 +29,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("deletar-pessoa-favorita")]
-        public async Task<IActionResult> DeletarPessoaFavorita([FromHeader] int id)
+        [HttpDelete("deletar-pessoa-favorita/{id}")]
+        public async Task<IActionResult> DeletarPessoaFavorita(int id)
         {
             var response = await _pessoaFavoritaService.DeletarPesssoaFavorita(id);
             if (!response.Status)
@@ -39,8 +39,8 @@ namespace API.Controllers
             }
             return Ok(response);
         }
-        [HttpGet("pegar-pessoa-favorita-por-usuario")]
-        public IActionResult PegarPessoaFavoritaPorUsuario([FromHeader] int idUsuario)
+        [HttpGet("pegar-pessoa-favorita-por-usuario/{idUsuario}")]
+        public IActionResult PegarPessoaFavoritaPorUsuario(int idUsuario)
         {
             var response =  _pessoaFavoritaService.PegarPessoasFavoritaPorUsuario(idUsuario);
             if (!response.Status)
