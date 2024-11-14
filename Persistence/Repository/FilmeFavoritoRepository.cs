@@ -55,6 +55,30 @@ namespace Persistence.Repository
             
         }
 
+        public ResponseBase<FilmeFav> PegarFilmeFavoritoPorUsuarioETMDB(int idUsuario, int idTMDB)
+        {
+            try
+            {
+                ResponseBase<FilmeFav> response = new ResponseBase<FilmeFav>();
+                FilmeFav? filmeFaavorito = _context.FilmesFavoritos.FirstOrDefault(f =>  f.IdUsuario == idUsuario && f.IdFilmeTMDB == idTMDB);
+                if (filmeFaavorito == null)
+                {
+                    response.Status = false;
+                    response.Mensagem = "Esse usuário não tem esse filme favorito";
+                    response.Dados = null;
+                    return response;
+                }
+                response.Status = true;
+                response.Dados = filmeFaavorito;
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public ResponseBase<IList<FilmeFav>> PegarFilmesFavoritosPorUsuario(int idUsuario)
         {
             try

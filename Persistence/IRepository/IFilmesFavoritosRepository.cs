@@ -10,6 +10,8 @@ namespace Persistence.IRepository
         Task<bool> DeletarFilmeFavorito(int id);
         ResponseBase<IList<FilmeFav>> PegarFilmesFavoritosPorUsuario(int idUsuario);
 
+        ResponseBase<FilmeFav> PegarFilmeFavoritoPorUsuarioETMDB(int idUsuario, int idTMDB);
+
 
     }
 }

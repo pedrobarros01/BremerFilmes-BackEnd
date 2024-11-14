@@ -29,8 +29,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("deletar-filme-favorito")]
-        public async Task<IActionResult> DeletarFilmeFavorito([FromHeader] int id)
+        [HttpDelete("deletar-filme-favorito/{id}")]
+        public async Task<IActionResult> DeletarFilmeFavorito(int id)
         {
             var response = await _filmesFavoritosService.DeletarFilmeFavorito(id);
             if (!response.Status)
@@ -39,14 +39,21 @@ namespace API.Controllers
             }
             return Ok(response);
         }
-        [HttpGet("pegar-filme-favorito-por-usuario")]
-        public IActionResult PegaFilmeFavoritoPorUsuario([FromHeader] int idUsuario)
+        [HttpGet("pegar-filme-favorito-por-usuario/{idUsuario}")]
+        public IActionResult PegaFilmeFavoritoPorUsuario(int idUsuario)
         {
             var response =  _filmesFavoritosService.PegarFilmesFavoritosPorUsuario(idUsuario);
             if (!response.Status)
             {
                 return BadRequest(response);
             }
+            return Ok(response);
+        }
+
+        [HttpGet("pegar-filme-favorito-do-usuario/{idUsuario}/{idFilme}")]
+        public IActionResult PegaFilmeFavoritoDoUsuario(int idUsuario, int idFilme)
+        {
+            var response = _filmesFavoritosService.PegarFilmeFavoritoPorUsuarioETMDB(idUsuario, idFilme);
             return Ok(response);
         }
     }

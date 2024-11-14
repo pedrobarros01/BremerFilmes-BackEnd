@@ -15,5 +15,6 @@ namespace Application.IService
         Task<ResponseBaseViewModel<FilmeFavoritoViewModel>> CriarFilmeFavorito(FilmeFavCreateDto filmeFav);
         Task<ResponseBaseViewModel<bool>> DeletarFilmeFavorito(int id);
         ResponseBaseViewModel<IList<FilmeFavoritoViewModel>> PegarFilmesFavoritosPorUsuario(int idUsuario);
+        ResponseBaseViewModel<FilmeFavoritoViewModel> PegarFilmeFavoritoPorUsuarioETMDB(int idUsuario, int idTMDB);
     }
 }

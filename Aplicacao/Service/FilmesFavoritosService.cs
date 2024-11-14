@@ -78,6 +78,25 @@ namespace Application.Service
             }
         }
 
+        public ResponseBaseViewModel<FilmeFavoritoViewModel> PegarFilmeFavoritoPorUsuarioETMDB(int idUsuario, int idTMDB)
+        {
+            ResponseBaseViewModel<FilmeFavoritoViewModel> responseViewModel;
+            try
+            {
+                var response = _repository.PegarFilmeFavoritoPorUsuarioETMDB(idUsuario, idTMDB);
+                responseViewModel = _mapper.Map<ResponseBaseViewModel<FilmeFavoritoViewModel>>(response);
+                return responseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseViewModel = new ResponseBaseViewModel<FilmeFavoritoViewModel>();
+                responseViewModel.Status = false;
+                responseViewModel.Mensagem = ex.Message;
+                return responseViewModel;
+            }
+        }
+
         public ResponseBaseViewModel<IList<FilmeFavoritoViewModel>> PegarFilmesFavoritosPorUsuario(int idUsuario)
         {
             ResponseBaseViewModel<IList<FilmeFavoritoViewModel>> responseViewModel;
