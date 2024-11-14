@@ -82,7 +82,7 @@ namespace Aplicacao.Service
         public LoginResultDto Login(LoginDto loginDto)
         {
             var user = _userRepository.GetUserByUsername(loginDto.Username);
-            UsuarioViewModel usuarioViewModel = _mapper.Map<UsuarioViewModel>(loginDto);
+            UsuarioViewModel usuarioViewModel = _mapper.Map<UsuarioViewModel>(user);
             if (user == null || !VerifyPassword(user.PasswordHash, loginDto.Password))
             {
                 return new LoginResultDto
