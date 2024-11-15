@@ -9,6 +9,8 @@ namespace Application.ViewModel
     public class UsuarioViewModel
     {
         public int Id { get; set; }
+        public string Localizacao { get; set; }
+        public string Descricao { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; } // A senha deve ser armazenada de forma segura (hash)
         public bool Status { get; set; }

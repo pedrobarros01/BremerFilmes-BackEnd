@@ -143,5 +143,28 @@ namespace Aplicacao.Service
                 return responseBaseViewModel;
             }
         }
+
+        public async Task<ResponseBaseViewModel<UsuarioViewModel>> AtualizarUsuario(UserEditDto userEditDto, int id)
+        {
+            ResponseBaseViewModel<UsuarioViewModel> responseBaseViewModel;
+            try
+            {
+                var response = await _userRepository.AtualizarUsuario(userEditDto.Descricao, userEditDto.Localizacao, id);
+                if (response == null)
+                {
+                    throw new Exception("Não foi possivel atualizar usuario");
+                }
+                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<UsuarioViewModel>>(response);
+                return responseBaseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseBaseViewModel = new ResponseBaseViewModel<UsuarioViewModel>();
+                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
+                responseBaseViewModel.Descricao = ex.Message;
+                return responseBaseViewModel;
+            }
+        }
     }
 }

@@ -7,6 +7,9 @@ namespace Dominio.Model
 {
     public class User : ModelBase
     {
+        public string? Localizacao { get; set; }
+        public string? Descricao { get; set; }
+
         [StringLength(50)]
         public string Username { get; set; }
 

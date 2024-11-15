@@ -11,6 +11,8 @@ namespace Application.ViewModel
         public int Id { get; set; }
         public string Username { get; set; }
         public DateTime? DtUserCreate { get; set; }
+        public string Localizacao { get; set; }
+        public string Descricao { get; set; }
 
     }
 }

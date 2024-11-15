@@ -26,8 +26,20 @@ namespace API.Controllers
 
             return Ok(new { token = result.Token });
         }
+        [HttpPut("atualizar-usuario/{id}")]
+        [Authorize]
+        public async Task<IActionResult> Atualizacao(int id, [FromBody] UserEditDto userEditDto)
+        {
+            var result = await _authService.AtualizarUsuario(userEditDto, id);
+
+            if (!result.Status)
+                return BadRequest(result.Mensagem);
+
+            return Ok(result);
+        }
 
         [HttpPost("cadastro")]
+        
         public async Task<IActionResult> Cadastro([FromBody] LoginDto loginDto)
         {
             var result = await _authService.CadastroUsuario(loginDto);
@@ -38,9 +50,9 @@ namespace API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("pegar-usuario-por-id")]
+        [HttpGet("pegar-usuario-por-id/{id}")]
         [Authorize]
-        public IActionResult PegarUsuarioPorId([FromHeader]int id)
+        public IActionResult PegarUsuarioPorId(int id)
         {
             var result = _authService.GetUserById(id);
 
