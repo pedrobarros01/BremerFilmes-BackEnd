@@ -15,5 +15,9 @@ namespace Application.IService
         Task<ResponseBaseViewModel<PessoaFavoritaViewModel>> CriarPessoaFavorita(PessoaFavCreateDto pessoaFav);
         Task<ResponseBaseViewModel<bool>> DeletarPesssoaFavorita(int id);
         ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarPessoasFavoritaPorUsuario(int idUsuario);
+        ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarDiretoresFavoritosPorUsuario(int idUsuario);
+        ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarAtoresFavoritosPorUsuario(int idUsuario);
+
+        ResponseBaseViewModel<PessoaFavoritaViewModel> PegarPessoaFavoritaPorUsuarioETMDB(int idUsuario, int idPessoaTmdb, string cargo);
     }
 }

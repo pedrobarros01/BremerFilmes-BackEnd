@@ -43,7 +43,8 @@ namespace API.Controllers
         public IActionResult PegaFilmeFavoritoPorUsuario(int idUsuario)
         {
             var response =  _filmesFavoritosService.PegarFilmesFavoritosPorUsuario(idUsuario);
-            if (!response.Status)
+            
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }
@@ -54,6 +55,10 @@ namespace API.Controllers
         public IActionResult PegaFilmeFavoritoDoUsuario(int idUsuario, int idFilme)
         {
             var response = _filmesFavoritosService.PegarFilmeFavoritoPorUsuarioETMDB(idUsuario, idFilme);
+            if (!response.Status && response.Descricao != "404")
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
     }

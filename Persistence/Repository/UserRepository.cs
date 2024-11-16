@@ -58,7 +58,7 @@ namespace Persistence.Repository
             {
                 response.Status = false;
                 response.Dados = null;
-                response.Descricao = "Não existe esse usuario";
+                response.Mensagem = "Não existe esse usuario";
                 return response;
             }
             response.Status = true;

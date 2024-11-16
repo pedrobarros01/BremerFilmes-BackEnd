@@ -39,11 +39,33 @@ namespace API.Controllers
             }
             return Ok(response);
         }
-        [HttpGet("pegar-pessoa-favorita-por-usuario/{idUsuario}")]
-        public IActionResult PegarPessoaFavoritaPorUsuario(int idUsuario)
+        [HttpGet("pegar-pessoa-favorita-por-usuario-e-cargo/{idUsuario}/{idPessoaTMDB}/{cargo}")]
+        public IActionResult PegarPessoaFavoritaPorUsuarioETMDB(int idUsuario, int idPessoaTMDB, string cargo)
         {
-            var response =  _pessoaFavoritaService.PegarPessoasFavoritaPorUsuario(idUsuario);
-            if (!response.Status)
+            var response =  _pessoaFavoritaService.PegarPessoaFavoritaPorUsuarioETMDB(idUsuario, idPessoaTMDB, cargo);
+            if (!response.Status && response.Descricao != "404")
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("pegar-atores-favoritos-por-usuario/{idUsuario}")]
+        public IActionResult PegarAtoresFavoritosPorUsuario(int idUsuario)
+        {
+            var response = _pessoaFavoritaService.PegarAtoresFavoritosPorUsuario(idUsuario);
+            if (!response.Status && response.Descricao != "404")
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("pegar-diretores-favoritos-por-usuario/{idUsuario}")]
+        public IActionResult PegarDiretoresFavoritosPorUsuario(int idUsuario)
+        {
+            var response = _pessoaFavoritaService.PegarDiretoresFavoritosPorUsuario(idUsuario);
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }

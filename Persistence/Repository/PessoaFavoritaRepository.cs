@@ -55,6 +55,79 @@ namespace Persistence.Repository
             
         }
 
+        public ResponseBase<IList<PessoaFav>> PegarAtoresFavoritosPorUsuario(int idUsuario)
+        {
+            try
+            {
+                ResponseBase<IList<PessoaFav>> response = new ResponseBase<IList<PessoaFav>>();
+                IList<PessoaFav> pessoaFavPorUsuario = _context.PessoasFavoritas.Where(p => p.IdUsuario == idUsuario && p.Cargo == "Acting").ToList();
+                if (pessoaFavPorUsuario.Count == 0)
+                {
+                    response.Status = false;
+                    response.Mensagem = "Esse usuário não tem nenhum ator favorito";
+                    response.Descricao = "404";
+                    return response;
+                }
+                response.Status = true;
+                response.Dados = pessoaFavPorUsuario;
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        public ResponseBase<IList<PessoaFav>> PegarDiretoresFavoritosPorUsuario(int idUsuario)
+        {
+            try
+            {
+                ResponseBase<IList<PessoaFav>> response = new ResponseBase<IList<PessoaFav>>();
+                IList<PessoaFav> pessoaFavPorUsuario = _context.PessoasFavoritas.Where(p => p.IdUsuario == idUsuario && p.Cargo == "Directing").ToList();
+                if (pessoaFavPorUsuario.Count == 0)
+                {
+                    response.Status = false;
+                    response.Mensagem = "Esse usuário não tem nenhum diretor favorito";
+                    response.Descricao = "404";
+                    return response;
+                }
+                response.Status = true;
+                response.Dados = pessoaFavPorUsuario;
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public ResponseBase<PessoaFav> PegarPessoaFavoritaPorUsuarioETMDB(int idUsuario, int idPessoaTmdb, string cargo)
+        {
+            try
+            {
+                ResponseBase<PessoaFav> response = new ResponseBase<PessoaFav>();
+                PessoaFav? pessoaFavPorUsuario = _context.PessoasFavoritas.FirstOrDefault(p => p.IdUsuario == idUsuario && p.IdPessoaTMDB == idPessoaTmdb && p.Cargo == cargo);
+                if (pessoaFavPorUsuario == null)
+                {
+                    response.Status = false;
+                    response.Mensagem = "Esse usuário não tem nenhum ator favorito";
+                    response.Descricao = "404";
+                    return response;
+                }
+                response.Status = true;
+                response.Dados = pessoaFavPorUsuario;
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public ResponseBase<IList<PessoaFav>> PegarPessoasFavoritaPorUsuario(int idUsuario)
         {
             try
@@ -65,6 +138,7 @@ namespace Persistence.Repository
                 {
                     response.Status = false;
                     response.Mensagem = "Esse usuário não tem nenhum ator ou diretor favorito";
+                    response.Descricao = "404";
                     return response;
                 }
                 response.Status = true;

@@ -44,7 +44,7 @@ namespace API.Controllers
         public async Task<IActionResult> DarCurtida([FromHeader] int id)
         {
             var response = await _reviewService.DarCurtida(id);
-            if (!response.Status)
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }
@@ -66,7 +66,7 @@ namespace API.Controllers
         public IActionResult PegarReview([FromHeader] int id)
         {
             var response =  _reviewService.PegarReview(id);
-            if (!response.Status)
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }
@@ -77,7 +77,7 @@ namespace API.Controllers
         public IActionResult PegarReviews()
         {
             var response = _reviewService.PegarReviews();
-            if (!response.Status)
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }
@@ -88,7 +88,7 @@ namespace API.Controllers
         public IActionResult PegarReviewsPorUsuario([FromHeader] int idUsuario)
         {
             var response = _reviewService.PegarReviewsPorUsuario(idUsuario);
-            if (!response.Status)
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }
@@ -99,7 +99,7 @@ namespace API.Controllers
         public IActionResult PegarReviewsPorFilme([FromHeader] int idTmdbFilme)
         {
             var response = _reviewService.PegarReviewsPorFilme(idTmdbFilme);
-            if (!response.Status)
+            if (!response.Status && response.Descricao != "404")
             {
                 return BadRequest(response);
             }

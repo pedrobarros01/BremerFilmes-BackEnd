@@ -78,6 +78,63 @@ namespace Application.Service
             }
         }
 
+        public ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarAtoresFavoritosPorUsuario(int idUsuario)
+        {
+            ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> responseViewModel;
+            try
+            {
+                var response = _repository.PegarAtoresFavoritosPorUsuario(idUsuario);
+                responseViewModel = _mapper.Map<ResponseBaseViewModel<IList<PessoaFavoritaViewModel>>>(response);
+                return responseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseViewModel = new ResponseBaseViewModel<IList<PessoaFavoritaViewModel>>();
+                responseViewModel.Status = false;
+                responseViewModel.Mensagem = ex.Message;
+                return responseViewModel;
+            }
+        }
+
+        public ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarDiretoresFavoritosPorUsuario(int idUsuario)
+        {
+            ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> responseViewModel;
+            try
+            {
+                var response = _repository.PegarDiretoresFavoritosPorUsuario(idUsuario);
+                responseViewModel = _mapper.Map<ResponseBaseViewModel<IList<PessoaFavoritaViewModel>>>(response);
+                return responseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseViewModel = new ResponseBaseViewModel<IList<PessoaFavoritaViewModel>>();
+                responseViewModel.Status = false;
+                responseViewModel.Mensagem = ex.Message;
+                return responseViewModel;
+            }
+        }
+
+        public ResponseBaseViewModel<PessoaFavoritaViewModel> PegarPessoaFavoritaPorUsuarioETMDB(int idUsuario, int idPessoaTmdb, string cargo)
+        {
+            ResponseBaseViewModel<PessoaFavoritaViewModel> responseViewModel;
+            try
+            {
+                var response = _repository.PegarPessoaFavoritaPorUsuarioETMDB(idUsuario, idPessoaTmdb, cargo);
+                responseViewModel = _mapper.Map<ResponseBaseViewModel<PessoaFavoritaViewModel>>(response);
+                return responseViewModel;
+            }
+            catch (Exception ex)
+            {
+
+                responseViewModel = new ResponseBaseViewModel<PessoaFavoritaViewModel>();
+                responseViewModel.Status = false;
+                responseViewModel.Mensagem = ex.Message;
+                return responseViewModel;
+            }
+        }
+
         public ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> PegarPessoasFavoritaPorUsuario(int idUsuario)
         {
             ResponseBaseViewModel<IList<PessoaFavoritaViewModel>> responseViewModel;

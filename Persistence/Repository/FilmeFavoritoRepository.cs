@@ -66,6 +66,7 @@ namespace Persistence.Repository
                     response.Status = false;
                     response.Mensagem = "Esse usuário não tem esse filme favorito";
                     response.Dados = null;
+                    response.Descricao = "404";
                     return response;
                 }
                 response.Status = true;
@@ -89,6 +90,7 @@ namespace Persistence.Repository
                 {
                     response.Status = false;
                     response.Mensagem = "Esse usuário não tem nenhum filme favorito";
+                    response.Descricao = "404";
                     return response;
                 }
                 response.Status = true;

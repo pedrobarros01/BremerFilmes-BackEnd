@@ -44,8 +44,8 @@ namespace Persistence.Repository
             if ( reviewFilme == null)
             {
                 response.Status = false;
-                response.Dados = -1;
-                response.Descricao = "Erro em achar review de filme(id invalido)";
+                response.Mensagem = "Erro em achar review de filme(id invalido)";
+                response.Descricao = "404";
                 return response;
             }
             reviewFilme.Curtidas += 1;
@@ -77,8 +77,8 @@ namespace Persistence.Repository
             if (reviewFilme == null)
             {
                 response.Status = false;
-                response.Dados = null;
-                response.Descricao = "Erro em achar review de filme(id invalido)";
+                response.Mensagem = "Erro em achar review de filme(id invalido)";
+                response.Descricao = "404";
                 return response;
             }
             reviewFilme.Comentario = comentario;
@@ -96,8 +96,8 @@ namespace Persistence.Repository
             if (review == null)
             {
                 response.Status= false;
-                response.Dados = null;
-                response.Descricao = "Não existe essa review";
+                response.Mensagem = "Não existe essa review";
+                response.Descricao = "404";
                 return response;
             }
             response.Status = true;
@@ -123,6 +123,7 @@ namespace Persistence.Repository
             {
                 response.Status = false;
                 response.Mensagem = "Esse filme não tem nenhuma review";
+                response.Descricao = "404";
                 return response;
             }
             response.Status = true;
@@ -138,6 +139,7 @@ namespace Persistence.Repository
             {
                 response.Status = false;
                 response.Mensagem = "Esse usuário não tem nenhuma review";
+                response.Descricao = "404";
                 return response;
             }
             response.Status = true;
