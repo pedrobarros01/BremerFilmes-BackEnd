@@ -1,6 +1,7 @@
 using Domain.Model;
 using Domain.Structure;
 using Dominio.Model;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 using Persistence.IRepository;
 
@@ -69,7 +70,7 @@ namespace Persistence.Repository
             return true;
         }
 
-        public async Task<ResponseBase<ReviewFilme>> EditarComentario(int id, string comentario)
+        public async Task<ResponseBase<ReviewFilme>> EditarComentario(int id, string comentario, decimal nota)
         {
             ReviewFilme? reviewFilme = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
             ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
@@ -82,6 +83,7 @@ namespace Persistence.Repository
                 return response;
             }
             reviewFilme.Comentario = comentario;
+            reviewFilme.Nota = nota;
             _context.ReviewFilmes.Update(reviewFilme);
             await _context.SaveChangesAsync();
             response.Status = true;
@@ -89,36 +91,14 @@ namespace Persistence.Repository
             return response;
         }
 
-        public ResponseBase<ReviewFilme> PegarReview(int id)
-        {
-            ReviewFilme? review = _context.ReviewFilmes.FirstOrDefault(r => r.Id == id);
-            ResponseBase<ReviewFilme> response = new ResponseBase<ReviewFilme>();
-            if (review == null)
-            {
-                response.Status= false;
-                response.Mensagem = "Não existe essa review";
-                response.Descricao = "404";
-                return response;
-            }
-            response.Status = true;
-            response.Dados = review;
-            return response;
 
-        }
 
-        public ResponseBase<IList<ReviewFilme>> PegarReviews()
-        {
-            ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
-            IList<ReviewFilme> reviews = _context.ReviewFilmes.ToList();
-            response.Status = true;
-            response.Dados = reviews;
-            return response;
-        }
+
 
         public ResponseBase<IList<ReviewFilme>> PegarReviewsPorFilme(int idTmdbFilme)
         {
             ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
-            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdFilmeTMDB == idTmdbFilme).ToList();
+            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdFilmeTMDB == idTmdbFilme).Include(u => u.User).ToList();
             if (reviews.Count == 0)
             {
                 response.Status = false;
@@ -134,7 +114,7 @@ namespace Persistence.Repository
         public ResponseBase<IList<ReviewFilme>> PegarReviewsPorUsuario(int idUsuario)
         {
             ResponseBase<IList<ReviewFilme>> response = new ResponseBase<IList<ReviewFilme>>();
-            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdUsuario == idUsuario).ToList();
+            IList<ReviewFilme> reviews = _context.ReviewFilmes.Where(r => r.IdUsuario == idUsuario).Include(u => u.User).ToList();
             if (reviews.Count == 0)
             {
                 response.Status = false;

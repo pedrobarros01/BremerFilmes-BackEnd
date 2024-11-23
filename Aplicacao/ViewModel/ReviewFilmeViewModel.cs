@@ -11,6 +11,7 @@ namespace Application.ViewModel
     public class ReviewFilmeViewModel : ModelBaseViewModel
     {
         public int IdFilmeTMDB { get; set; }
+        public UsuarioSearchViewModel User { get; set; }
         public int IdUsuario { get; set; }
         public string Comentario { get; set; }
         public decimal Nota { get; set; }

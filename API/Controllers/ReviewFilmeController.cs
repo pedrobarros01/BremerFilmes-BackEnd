@@ -29,8 +29,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("deletar-review")]
-        public async Task<IActionResult> Deletar([FromHeader] int id)
+        [HttpDelete("deletar-review/{id}")]
+        public async Task<IActionResult> Deletar(int id)
         {
             var response = await _reviewService.DeletarReview(id);
             if (!response.Status)
@@ -40,8 +40,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("dar-curtida")]
-        public async Task<IActionResult> DarCurtida([FromHeader] int id)
+        [HttpPut("dar-curtida/{id}")]
+        public async Task<IActionResult> DarCurtida(int id)
         {
             var response = await _reviewService.DarCurtida(id);
             if (!response.Status && response.Descricao != "404")
@@ -51,7 +51,7 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("editar-comentario")]
+        [HttpPut("editar-review")]
         public async Task<IActionResult> EditarComentario([FromBody] ReviewEditDto edit)
         {
             var response = await _reviewService.EditarComentario(edit);
@@ -62,30 +62,10 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("pegar-review")]
-        public IActionResult PegarReview([FromHeader] int id)
-        {
-            var response =  _reviewService.PegarReview(id);
-            if (!response.Status && response.Descricao != "404")
-            {
-                return BadRequest(response);
-            }
-            return Ok(response);
-        }
 
-        [HttpGet("pegar-reviews")]
-        public IActionResult PegarReviews()
-        {
-            var response = _reviewService.PegarReviews();
-            if (!response.Status && response.Descricao != "404")
-            {
-                return BadRequest(response);
-            }
-            return Ok(response);
-        }
 
-        [HttpGet("pegar-reviews-de-usuario")]
-        public IActionResult PegarReviewsPorUsuario([FromHeader] int idUsuario)
+        [HttpGet("pegar-reviews-de-usuario/{idUsuario}")]
+        public IActionResult PegarReviewsPorUsuario( int idUsuario)
         {
             var response = _reviewService.PegarReviewsPorUsuario(idUsuario);
             if (!response.Status && response.Descricao != "404")
@@ -95,8 +75,8 @@ namespace API.Controllers
             return Ok(response);
         }
 
-        [HttpGet("pegar-reviews-de-filme")]
-        public IActionResult PegarReviewsPorFilme([FromHeader] int idTmdbFilme)
+        [HttpGet("pegar-reviews-de-filme/{idTmdbFilme}")]
+        public IActionResult PegarReviewsPorFilme(int idTmdbFilme)
         {
             var response = _reviewService.PegarReviewsPorFilme(idTmdbFilme);
             if (!response.Status && response.Descricao != "404")

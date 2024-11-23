@@ -19,7 +19,5 @@ namespace Application.IService
 
         ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorUsuario(int idUsuario);
         ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorFilme(int idTmdbFilme);
-        ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviews();
-        ResponseBaseViewModel<ReviewFilmeViewModel> PegarReview(int id);
     }
 }

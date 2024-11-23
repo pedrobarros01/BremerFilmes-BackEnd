@@ -97,7 +97,7 @@ namespace Application.Service
             ResponseBaseViewModel<ReviewFilmeViewModel> responseBaseViewModel;
             try
             {
-                var response = await _repository.EditarComentario(editDto.id, editDto.Comentario);
+                var response = await _repository.EditarComentario(editDto.id, editDto.Comentario, editDto.Nota);
                 responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<ReviewFilmeViewModel>>(response);
                 return responseBaseViewModel;
             }
@@ -111,43 +111,8 @@ namespace Application.Service
             }
         }
 
-        public ResponseBaseViewModel<ReviewFilmeViewModel> PegarReview(int id)
-        {
-            ResponseBaseViewModel<ReviewFilmeViewModel> responseBaseViewModel;
-            try
-            {
-                var response =  _repository.PegarReview(id);
-                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<ReviewFilmeViewModel>>(response);
-                return responseBaseViewModel;
-            }
-            catch (Exception ex)
-            {
 
-                responseBaseViewModel = new ResponseBaseViewModel<ReviewFilmeViewModel>();
-                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
-                responseBaseViewModel.Descricao = ex.Message;
-                return responseBaseViewModel;
-            }
-        }
 
-        public ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviews()
-        {
-            ResponseBaseViewModel<IList<ReviewFilmeViewModel>> responseBaseViewModel;
-            try
-            {
-                var response = _repository.PegarReviews();
-                responseBaseViewModel = _mapper.Map<ResponseBaseViewModel<IList<ReviewFilmeViewModel>>>(response);
-                return responseBaseViewModel;
-            }
-            catch (Exception ex)
-            {
-
-                responseBaseViewModel = new ResponseBaseViewModel<IList<ReviewFilmeViewModel>>();
-                responseBaseViewModel.Mensagem = MsgErro.ErroParametroRecebido;
-                responseBaseViewModel.Descricao = ex.Message;
-                return responseBaseViewModel;
-            }
-        }
 
         public ResponseBaseViewModel<IList<ReviewFilmeViewModel>> PegarReviewsPorFilme(int idTmdbFilme)
         {
